@@ -1,0 +1,22 @@
+[
+    {
+        "name": "orzhov-guildgate",
+        "rarity": "common"
+    },
+    {
+        "name": "izzet-guildgate",
+        "rarity": "common"
+    },
+    {
+        "name": "golgari-guildgate",
+        "rarity": "common"
+    },
+    {
+        "name": "boros-guildgate",
+        "rarity": "uncommon"
+    },
+    {
+        "name": "simic-guildgate",
+        "rarity": "rare"
+    }
+]

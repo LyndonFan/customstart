@@ -1,0 +1,22 @@
+[
+    {
+        "name": "azorius-guildgate",
+        "rarity": "common"
+    },
+    {
+        "name": "dimir-guildgate",
+        "rarity": "common"
+    },
+    {
+        "name": "rakdos-guildgate",
+        "rarity": "common"
+    },
+    {
+        "name": "gruul-guildgate",
+        "rarity": "uncommon"
+    },
+    {
+        "name": "selesnya-guildgate",
+        "rarity": "rare"
+    }
+]
