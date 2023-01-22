@@ -1,6 +1,6 @@
-interface CardConfig {
+export interface CardConfig {
     name: string,
     rarity: string
 }
 
-export default CardConfig;
+export default {};

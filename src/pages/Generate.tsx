@@ -1,39 +1,43 @@
-import React, {Component, PropsWithChildren} from "react";
+import React from "react";
 
 import {randomSample} from "../utils";
-import CardConfig from "../interfaces";
+import {CardConfig} from "../interfaces";
 import MECHANICS from "../../data/mechanics.json";
 import FLAVORS from "../../data/flavors.json";
 
-const WEIGHTS = {
-    "uncommon":  5,
-    "rare": 3,
-    "mythic": 1
-}
+const WEIGHTS = new Map<string, number>();
+WEIGHTS.set("uncommon",5);
+WEIGHTS.set("rare",3);
+WEIGHTS.set("mythic", 1);
+
 
 interface CardsProp {
     cards: CardConfig[];
     children?: JSX.Element|JSX.Element[];
 }
 
-// let MECHANICS: CardConfig[] = JSON.parse(require("../../data/mechanics.json"));
-// let FLAVORS: CardConfig[] = JSON.parse(require("../../data/flavors.json"));
-// console.log(MECHANICS)
-// console.log(FLAVORS)
 
-function FetchCards(cardList: CardConfig[]): string[] {
-    const commonNames = cardList.filter(c => c.rarity === "common").map(c => c.name);
-    
-    const otherNames = cardList.filter(c => c.rarity !== "common").map(c => c.name);
-    return []
+function FetchCards(cardList: CardConfig[]): CardConfig[] {
+    const commons = cardList.filter(c => c.rarity === "common");
+    const others = cardList.filter(c => c.rarity !== "common");
+    const otherWeights = others.map(c => WEIGHTS.get(c.rarity) ?? 0);
+    const res = [
+        ...randomSample(commons,[], 2),
+        ...randomSample(others, otherWeights, 1)
+    ];
+    return res
 }
 
 const Card: React.FC<CardConfig> = ({name, rarity}: CardConfig) => {
-    return <img
+    return <span>
+    <img
         src={require(`../images/${name}-front.png`)}
         alt={name}
         width={200}>
+    
     </img>
+    <p>{name+' '+rarity}</p>
+    </span>
 }
 
 const Page: React.FC<CardsProp> = ({cards}: CardsProp) => {
@@ -49,11 +53,11 @@ const Page: React.FC<CardsProp> = ({cards}: CardsProp) => {
 
 
 export default function GeneratePage() {
-    const mechs: CardConfig[] = [];
-    const flavs: CardConfig[] = [];
+    const mechs: CardConfig[] = FetchCards(MECHANICS);
+    const flavs: CardConfig[] = FetchCards(FLAVORS);
     // return <Page props={{mechanics: mechs, flavors: flavs}}/>;
     return <div>
-        <Page cards={MECHANICS}/>
-        <Page cards={FLAVORS}/>
+        <Page cards={mechs}/>
+        <Page cards={flavs}/>
     </div>
 }
